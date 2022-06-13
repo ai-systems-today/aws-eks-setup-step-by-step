@@ -92,7 +92,7 @@ cd ~/environment
 ```
 
 ```
-git clone https://github.com/aws-samples/terraform-eks-code.git tfekscode
+git clone https://github.com/ai-systems-today/code.git
 ```
 
 ```
