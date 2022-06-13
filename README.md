@@ -357,13 +357,13 @@ you should see:
 
 Finally exit from the busybox container:
 
-```
+```bash
 exit
 ```
 
 # 10. Deploy the AWS Load Balancer Controller
 
-```
+```bash
 cd ~/environment/code/lb2
 
 terraform init
@@ -392,13 +392,13 @@ The above has:
 
 Confirm the controller is operational with the command below and look for “Running” in the output:
 
-```
+```bash
 kubectl get pods -A | grep aws-load-balancer-controller 
 ```
 
 you can also look at the helm output with:
 
-```
+```bash
 helm ls -n kube-system
 ```
 
