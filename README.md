@@ -4,25 +4,25 @@ We build a private EKS cluster using Terraform and Cloud9 as a bastion host.
 
 The diagram depicts the end state:
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\master-scenario.png)
+![](/images/master-scenario.png)
 
 ## 1. Prerequisites
 
 ### 1. Add an IAM user for the workshop.
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\iam-1-create-user.png)
+![](/images/iam-1-create-user.png)
 
 ### Attach the AdministratorAccess IAM Policy
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\iam-2-attach-policy.png)
+![](/images/iam-2-attach-policy.png)
 
 ### Create new user
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\iam-3-create-user.png)
+![](/images/iam-3-create-user.png)
 
 ### Save URL
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\iam-4-save-url.png)
+![](/images/iam-4-save-url.png)
 
 ## 2. Create Cloud9 Workspace
 
@@ -31,7 +31,7 @@ The diagram depicts the end state:
 - Click <!--Create environment-->
 - On the next page, give Name: **eks-terraform**, then click Next
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\c9-create1.png)
+![](/images/c9-create1.png)
 
 On the next screen choose these options:
 
@@ -41,16 +41,16 @@ On the next screen choose these options:
 - Set the Cost-saving setting to “After one hour”
 - And click Next Step
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\c9-create2.png)
+![](/images/c9-create2.png)
 
 On the Review page double-check the Name is set to “eks-terraform” and then click Create environment
 When it comes up, customize the environment by closing the welcome tab and lower work area, and opening a new terminal tab in the main work area:
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\c9before.png)
+![](/images/c9before.png)
 
 Your workspace should now look like this:
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\c9after.png)
+![](/images/\AWS-EKS-TF\c9after.png)
 
 ## 2. Create IAM Role for Workspace
 
@@ -60,7 +60,7 @@ Your workspace should now look like this:
 4. Take the defaults, and click Next: Review to review.
 5. Enter eksworkshop-admin for the Name, and click Create role.
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\createrole.png)
+![](/images/createrole.png)
 
 ## 3. Attach IAM Role to Workspace
 
@@ -68,11 +68,11 @@ Go to your newly created EC2 instance
 
 Select the instance, then choose **Actions / Security / Modify IAM Role**
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\ModifyIAMRole.jpg)
+![](/images/ModifyIAMRole.jpg)
 
 Choose **eksworkshop-admin** from the **IAM Role** drop down, and select **Save**
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\SaveIAMRole.jpg)
+![](/images/SaveIAMRole.jpg)
 
 ## 4. Update settings for your Workspace
 
@@ -81,7 +81,7 @@ Choose **eksworkshop-admin** from the **IAM Role** drop down, and select **Save*
 - Turn off AWS managed temporary credentials
 - Close the Preferences tab
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\c9disableiam.png)
+![](/images/c9disableiam.png)
 
 ## 5. Install Kubernetes Tools
 
@@ -109,7 +109,7 @@ source setup-tools.sh
 
  Provisioned a Cloud9 IDE in the default VPC
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\cloud9-ide.jpg)
+![](/images/cloud9-ide.jpg)
 
 # 2. Terraform State
 
@@ -136,13 +136,13 @@ terraform apply tfplan
   - Creates the DynamoDB tables for terraform locks
   - Runs the the gen-backend.sh script from a Terraform “null resource”
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\tf-state-aws.jpg)
+![](/images/tf-state-aws.jpg)
 
 # 3. Set up the VPC, Subnets, Security Groups and VPC Endpoints
 
 Diagram shows the EKS VPC and CI/CD VPC we will build in this section:
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\net-1.jpg)
+![](/images/net-1.jpg)
 
 ```
 cd ~/environment/tfekscode/net 
@@ -236,7 +236,7 @@ You can see from the plan the following resources will be created
 
 Deploy a customized Managed Node Group using an AMI we specify and a SSM agent as a demonstration of deploying custom software to the worker nodes.
 
-![](C:\Users\Kyriakos\Documents\AWS-EKS-TF\nodeg-build.jpg)
+![](/images/nodeg-build.jpg)
 
 ```
 cd ~/environment/tfekscode/nodeg
