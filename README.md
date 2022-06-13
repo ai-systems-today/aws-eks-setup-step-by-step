@@ -96,7 +96,7 @@ git clone https://github.com/ai-systems-today/code.git
 ```
 
 ```
-cd ~/environment/tfekscode
+cd ~/environment/code
 ```
 
 ```
@@ -116,7 +116,7 @@ source setup-tools.sh
 Create the S3 bucket and DynamoDB tables for Terraform state files & locks.
 
 ```
-cd ~/environment/tfekscode/tf-setup 
+cd ~/environment/code/tf-setup 
 
 terraform init
 
@@ -145,7 +145,7 @@ Diagram shows the EKS VPC and CI/CD VPC we will build in this section:
 ![](/images/net-1.jpg)
 
 ```
-cd ~/environment/tfekscode/net 
+cd ~/environment/code/net 
 
 terraform init
 
@@ -180,7 +180,7 @@ There are also Terraform file to setup the VPC and subnets used by CodeBuild par
 # 4 Set up the IAM Roles and Policies for EKS
 
 ```
-cd ~/environment/tfekscode/iam
+cd ~/environment/code/iam
 
 terraform init
 
@@ -201,7 +201,7 @@ From the plan the following resources will be created - open the corresponding f
 # 5. Link the Cloud9 IDE and CI/CD to the EKS using VPC Peering
 
 ```
-cd ~/environment/tfekscode/c9net
+cd ~/environment/code/c9net
 
 terraform init
 
@@ -215,7 +215,7 @@ terraform apply tfplan
 # 6. Create EKS Cluster 
 
 ```
-cd ~/environment/tfekscode/cluster
+cd ~/environment/code/cluster
 
 terraform init
 
@@ -239,7 +239,7 @@ Deploy a customized Managed Node Group using an AMI we specify and a SSM agent a
 ![](/images/nodeg-build.jpg)
 
 ```
-cd ~/environment/tfekscode/nodeg
+cd ~/environment/code/nodeg
 
 terraform init
 
@@ -253,7 +253,7 @@ terraform apply tfplan
 # 8. Deploy the CICD Infrastructure
 
 ```
-cd ~/environment/tfekscode/cicd
+cd ~/environment/code/cicd
 
 terraform init
 
@@ -279,7 +279,7 @@ if have issues, run this command:
 # 9. Use secondary CIDR with EKS
 
 ```
-cd ~/environment/tfekscode/eks-cidr
+cd ~/environment/code/eks-cidr
 
 terraform init
 
@@ -364,7 +364,7 @@ exit
 # 10. Deploy the AWS Load Balancer Controller
 
 ```
-cd ~/environment/tfekscode/lb2
+cd ~/environment/code/lb2
 
 terraform init
 
@@ -405,7 +405,7 @@ helm ls -n kube-system
 # 11. Deploy sample application to EKS using CI/CD
 
 ```bash
-cd ~/environment/tfekscode/sampleapp
+cd ~/environment/code/sampleapp
 ```
 
 Create a service credential to use with our CodeCommit git repo:
@@ -605,7 +605,7 @@ Note: it’s only possible to delete the application from the command line like 
 # 12. Build a second node group that uses SPOT instances
 
 ```
-cd ~/environment/tfekscode/nodeg2
+cd ~/environment/code/nodeg2
 
 terraform init
 
@@ -635,7 +635,7 @@ ip-10-0-2-71.eu-west-1.compute.internal    Ready    <none>   2m57s   v1.18.9-eks
 Annotate the nodes in the second group such that they only use 10.x addresses
 
 ```
-cd ~/environment/tfekscode/extra/eks-cidr2
+cd ~/environment/code/extra/eks-cidr2
 
 terraform init
 
@@ -649,7 +649,7 @@ terraform apply tfplan
 Deploy two sample applications to separate node groups:
 
 ```
-cd ~/environment/tfekscode/extra/sampleapp2
+cd ~/environment/code/extra/sampleapp2
 
 terraform init
 
