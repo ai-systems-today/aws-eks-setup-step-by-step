@@ -1,0 +1,3 @@
+variable "spots" {
+  default = []
+}
