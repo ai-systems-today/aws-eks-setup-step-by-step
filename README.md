@@ -87,23 +87,23 @@ Choose **eksworkshop-admin** from the **IAM Role** drop down, and select **Save*
 
 Clone the workshop repo and use a helper script to set up the workshop tools:
 
-```
+```bash
 cd ~/environment
 ```
 
-```
+```bash
 git clone https://github.com/ai-systems-today/code.git
 ```
 
-```
+```bash
 cd ~/environment/code
 ```
 
-```
+```bash
 source setup-tools.sh
 ```
 
-```
+```bash
 ./check.sh
 ```
 
@@ -115,7 +115,7 @@ source setup-tools.sh
 
 Create the S3 bucket and DynamoDB tables for Terraform state files & locks.
 
-```
+```bash
 cd ~/environment/code/tf-setup 
 
 terraform init
@@ -144,7 +144,7 @@ Diagram shows the EKS VPC and CI/CD VPC we will build in this section:
 
 ![](/images/net-1.jpg)
 
-```
+```bash
 cd ~/environment/code/net 
 
 terraform init
@@ -179,7 +179,7 @@ There are also Terraform file to setup the VPC and subnets used by CodeBuild par
 
 # 4 Set up the IAM Roles and Policies for EKS
 
-```
+```bash
 cd ~/environment/code/iam
 
 terraform init
@@ -200,7 +200,7 @@ From the plan the following resources will be created - open the corresponding f
 
 # 5. Link the Cloud9 IDE and CI/CD to the EKS using VPC Peering
 
-```
+```bash
 cd ~/environment/code/c9net
 
 terraform init
@@ -214,7 +214,7 @@ terraform apply tfplan
 
 # 6. Create EKS Cluster 
 
-```
+```bash
 cd ~/environment/code/cluster
 
 terraform init
@@ -238,7 +238,7 @@ Deploy a customized Managed Node Group using an AMI we specify and a SSM agent a
 
 ![](/images/nodeg-build.jpg)
 
-```
+```bash
 cd ~/environment/code/nodeg
 
 terraform init
@@ -252,7 +252,7 @@ terraform apply tfplan
 
 # 8. Deploy the CICD Infrastructure
 
-```
+```bash
 cd ~/environment/code/cicd
 
 terraform init
@@ -266,19 +266,19 @@ terraform apply tfplan
 
 Check CodeBuild is authorized to access the EKS cluster ok
 
-```
+```bash
 kubectl get -n kube-system configmap/aws-auth -o yaml | grep -i codebuild
 ```
 
 if have issues, run this command:
 
-```
+```bash
 ./auth-cicd.sh
 ```
 
 # 9. Use secondary CIDR with EKS
 
-```
+```bash
 cd ~/environment/code/eks-cidr
 
 terraform init
@@ -296,7 +296,7 @@ kubectl get pods -A -o wide
 
 Test networking:
 
-```
+```bash
 kubectl create deployment nginx --image=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/nginx 
 
 kubectl scale --replicas=3 deployments/nginx 
@@ -308,7 +308,7 @@ kubectl get pods -o wide
 
 If after 10-20 seconds have elapsed you see the containers are not Running - but in status ContainerCreating instead run this script to re-annotate the worker nodes:
 
-```
+```bash
 ./reannotate-nodes.sh
 
 kubectl get pods -o wide
@@ -316,11 +316,11 @@ kubectl get pods -o wide
 
 You can use busybox pod and ping pods within same host or across hosts using IP address:
 
-```
+```bash
 kubectl run -i --rm --tty debug --image=$ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/busybox -- sh
 ```
 
-```
+```bash
 If you don't see a command prompt, try pressing enter.
 / # 
 ```
@@ -329,13 +329,13 @@ Test access to internet and to nginx service
 
 Internet connectivity - should fail (hang) as we build our EKS cluster in a private VPC !
 
-```
+```bash
 wget google.com -O -
 ```
 
 Type ctrl-c to escape:
 
-```
+```bash
 wget nginx -O -
 ```
 
@@ -474,8 +474,8 @@ And tail to logs of the build job (scroll the window or use the `Tail Logs` butt
 
 Check everything is running ?
 
-```
-kubectl get pods,svc,deployment -n game-2048 -o wide
+```bash
+# kubectl get pods,svc,deployment -n game-2048 -o wide
 NAME                                   READY   STATUS    RESTARTS   AGE   IP              NODE                                       NOMINATED NODE   READINESS GATES
 pod/deployment-2048-76d4bff958-5w94k   1/1     Running   0          55s   100.64.143.56   ip-10-0-3-166.eu-west-1.compute.internal   <none>           <none>
 pod/deployment-2048-76d4bff958-r4jhb   1/1     Running   0          55s   100.64.24.3     ip-10-0-1-228.eu-west-1.compute.internal   <none>           <none>
@@ -497,7 +497,7 @@ deployment.apps/deployment-2048   2/2     2            2           55s   app-204
 
 Enable port forwarding so we can see the application in out Cloud9 IDE
 
-```
+```bash
 kubectl port-forward service/service-2048 8080:80 -n game-2048
 Forwarding from 127.0.0.1:8080 -> 80
 Forwarding from [::1]:8080 -> 80
@@ -532,7 +532,7 @@ ingress-2048   <none>   *                 80      5m27s
 
 Watching the aws-load-balancer-controller - open another terminal and use this command to watch the logs:
 
-```
+```bash
 kubectl logs `kubectl get pods -n kube-system | grep aws-load-balancer-controller | awk '{print $1}'` -n kube-system --follow
 ```
 
@@ -604,7 +604,7 @@ Note: it’s only possible to delete the application from the command line like 
 
 # 12. Build a second node group that uses SPOT instances
 
-```
+```bash
 cd ~/environment/code/nodeg2
 
 terraform init
@@ -624,7 +624,7 @@ You can see from the plan the following resources will be created
 We should now have 4 kubernetes worker nodes
 
 ```bash
-kubectl get nodes 
+# kubectl get nodes 
 NAME                                       STATUS   ROLES    AGE     VERSION
 ip-10-0-1-231.eu-west-1.compute.internal   Ready    <none>   3m      v1.18.9-eks-d1db3c
 ip-10-0-1-25.eu-west-1.compute.internal    Ready    <none>   3h58m   v1.18.9-eks-d1db3c
@@ -634,7 +634,7 @@ ip-10-0-2-71.eu-west-1.compute.internal    Ready    <none>   2m57s   v1.18.9-eks
 
 Annotate the nodes in the second group such that they only use 10.x addresses
 
-```
+```bash
 cd ~/environment/code/extra/eks-cidr2
 
 terraform init
@@ -648,7 +648,7 @@ terraform apply tfplan
 
 Deploy two sample applications to separate node groups:
 
-```
+```bash
 cd ~/environment/code/extra/sampleapp2
 
 terraform init
@@ -663,7 +663,7 @@ terraform apply tfplan
 Check everything is running ?
 
 ```bash
-kubectl get pods,svc,deployment -A -o wide | grep game
+# kubectl get pods,svc,deployment -A -o wide | grep game
 game1-2048    pod/deployment-2048-ng1-788c7f7874-mccgw            1/1     Running   0          2m8s    100.64.100.188   ip-10-0-2-179.eu-west-1.compute.internal   <none>           <none>
 game1-2048    pod/deployment-2048-ng1-788c7f7874-nvlqq            1/1     Running   0          2m8s    100.64.42.14     ip-10-0-1-25.eu-west-1.compute.internal    <none>           <none>
 game2-2048    pod/deployment-2048-ng2-74bbf67dc5-w9sbh            1/1     Running   0          2m7s    10.0.2.166       ip-10-0-2-71.eu-west-1.compute.internal    <none>           <none>
@@ -689,7 +689,7 @@ Note from the output that:
 Enable port forwarding so we can see the application in out Cloud9 IDE:
 
 ```bash
-kubectl port-forward service/service2-2048 8080:80 -n game2-2048
+# kubectl port-forward service/service2-2048 8080:80 -n game2-2048
 Forwarding from 127.0.0.1:8080 -> 80
 Forwarding from [::1]:8080 -> 80
 Handling connection for 8080
@@ -715,6 +715,6 @@ Interrupt the port forwarding with **ctrl-C**
 
 Then use Terraform to delete the Kubernetes resources:
 
-```
+```bash
 terraform destroy -auto-approve
 ```
