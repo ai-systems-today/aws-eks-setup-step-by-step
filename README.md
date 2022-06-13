@@ -50,7 +50,7 @@ When it comes up, customize the environment by closing the welcome tab and lower
 
 Your workspace should now look like this:
 
-![](/images/\AWS-EKS-TF\c9after.png)
+![](/images/c9after.png)
 
 ## 2. Create IAM Role for Workspace
 
@@ -364,7 +364,7 @@ exit
 # 10. Deploy the AWS Load Balancer Controller
 
 ```
-cd ~/environment/tfekscode/l2
+cd ~/environment/tfekscode/lb2
 
 terraform init
 
